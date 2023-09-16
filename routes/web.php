@@ -14,18 +14,4 @@ use App\Http\Controllers\Main;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-Route::get('/', function () {
-    
-    try {
-        DB::connection()->getPdo();
-        echo "Conexão efetuada com sucesso. " . DB::connection()->getDatabaseName();
-    } catch (\Exception $e) {
-        die('Não foi possível ligar à base de dados. Erro:' . $e->getMessage());
-    }
-
-});
-
-Route::get('/main', [Main::class, 'index']);
-Route::get('/users', [Main::class, 'users']);
-Route::get('/view', [Main::class, 'view']);
+Route::get('/', [Main::class, 'index'])->name('index');
