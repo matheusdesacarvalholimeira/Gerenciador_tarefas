@@ -22,6 +22,14 @@
             </div>
         </form>
 
+        @if($errors->any())
+            <div cass="alert alert-danger p-2">
+                @foreach($errors->all() as $error)
+                    <span>{{ $error }}</span><br>
+                @endforeach
+            </div>
+        @endif
+
     </div>
 </div>
 
