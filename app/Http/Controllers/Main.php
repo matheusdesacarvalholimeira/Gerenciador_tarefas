@@ -7,11 +7,21 @@ use Illuminate\Support\Facades\DB;
 
 class Main extends Controller
 {
+    // ======================================================
+    // main page
+    // ======================================================
     public function index()
     {
-        echo 'Gestor de Tarefas';
+        $data = [
+            'title' => 'Gestor de Tarefas'
+        ];
+
+        return view('main', $data);
     }
 
+    // ======================================================
+    // login
+    // ======================================================
     public function login()
     {
         $data = [
@@ -23,22 +33,12 @@ class Main extends Controller
 
     public function login_submit()
     {
-        // fake login
-        session()->put('username', 'admin');
-        echo 'Logado';
+        // ...
     }
 
-    // main page
-    public function main()
-    {
-        $data = [
-            'title' => 'Main'
-        ];
-
-        return view('main', $data);
-    }
-
+    // ======================================================
     // logout
+    // ======================================================
     public function logout()
     {
         session()->forget('username');
