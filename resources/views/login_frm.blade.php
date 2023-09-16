@@ -26,6 +26,13 @@
             <div class="mb-3">
                 <button type="submit" class="btn btn-dark w-100">Entrar</button>
             </div>
+
+            @if(session()->has('login_error'))
+                <div class="aler alert-danger text-center p-1">
+                    {{ session()->get('login_error') }}
+                </div>
+            @endif
+
         </form>
     </div>
 </div>
