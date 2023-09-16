@@ -25,4 +25,14 @@ class Main extends Controller
     {
         echo 'submissão do login';
     }
+
+    // main page
+    public function main()
+    {
+        $data = [
+            'title' => 'Main'
+        ];
+
+        return view('main', $data);
+    }
 }
