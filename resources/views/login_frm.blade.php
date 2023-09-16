@@ -11,25 +11,22 @@
             @csrf
             <div class="mb-3">
                 <label for="text_username" class="form-label">Usuário</label>
-                <input type="text" name="text_username" id="text_username" class="form-control" placeholder="Usuário" required>
+                <input type="text" name="text_username" id="text_username" class="form-control" placeholder="Usuário" required value="{{ old('text_username') }}">
+                @error('text_username')
+                    <div class="text-warning">{{ $errors->get('text_username')[0] }}</div>
+                @enderror
             </div>
             <div class="mb-3">
                 <label for="text_password" class="form-label">Senha</label>
-                <input type="password" name="text_password" id="text_password" class="form-control" placeholder="Senha" require>
+                <input type="password" name="text_password" id="text_password" class="form-control" placeholder="Senha" require value="{{ old('text_password') }}">
+                @error('text_password')
+                    <div class="text-warning">{{ $errors->get('text_password')[0] }}</div>
+                @enderror
             </div>
             <div class="mb-3">
                 <button type="submit" class="btn btn-dark w-100">Entrar</button>
             </div>
         </form>
-
-        @if($errors->any())
-            <div cass="alert alert-danger p-2">
-                @foreach($errors->all() as $error)
-                    <span>{{ $error }}</span><br>
-                @endforeach
-            </div>
-        @endif
-
     </div>
 </div>
 
