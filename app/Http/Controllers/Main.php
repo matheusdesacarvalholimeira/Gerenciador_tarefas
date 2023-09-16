@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class Main extends Controller
 {
@@ -14,5 +15,23 @@ class Main extends Controller
         ];
 
         return view('main', $data);
+    }
+
+    public function users()
+    {
+        // get users with raw sql
+        // $users = DB::select('SELECT * FROM users');
+        // dd($users);
+        
+        // with query builder
+        // $users = DB::table('users')->get();
+        // dd($users);
+
+        // with query builder - return in array
+        // $users = DB::table('users')->get()->toArray();
+        // dd($users);
+
+        // echo '<pre>';
+        // print_r($users);
     }
 }
