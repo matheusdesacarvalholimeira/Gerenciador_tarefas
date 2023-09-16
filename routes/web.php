@@ -15,15 +15,16 @@ use App\Http\Controllers\Main;
 |
 */
 
-// login routes
-Route::get('/login', [Main::class, 'login'])->name('login');
-Route::post('/login_submit', [Main::class, 'login_submit'])->name('login_submit');
+// out app
+Route::middleware('CheckLogout')->group(function(){
+    Route::get('/login', [Main::class, 'login'])->name('login');
+    Route::post('/login_submit', [Main::class, 'login_submit'])->name('login_submit');
+});
 
-// route with middleware
+// in app
 Route::middleware('CheckLogin')->group(function(){
-
     Route::get('/', [Main::class, 'index'])->name('index');
     Route::get('/main', [Main::class, 'main'])->name('main');
-
+    Route::get('/logout', [Main::class, 'logout'])->name('logout');
 });
 

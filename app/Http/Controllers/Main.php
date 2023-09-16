@@ -23,7 +23,9 @@ class Main extends Controller
 
     public function login_submit()
     {
-        echo 'submissão do login';
+        // fake login
+        session()->put('username', 'admin');
+        echo 'Logado';
     }
 
     // main page
@@ -34,5 +36,12 @@ class Main extends Controller
         ];
 
         return view('main', $data);
+    }
+
+    // logout
+    public function logout()
+    {
+        session()->forget('username');
+        return redirect()->route('login');
     }
 }
