@@ -43,4 +43,13 @@ class Main extends Controller
             echo $user->username . '<br>';
         }
     }
+
+    public function view()
+    {
+        $data = [
+            'title' => 'Título da página'
+        ];
+
+        return view('home', $data);
+    }
 }

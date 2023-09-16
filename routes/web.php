@@ -28,3 +28,4 @@ Route::get('/', function () {
 
 Route::get('/main', [Main::class, 'index']);
 Route::get('/users', [Main::class, 'users']);
+Route::get('/view', [Main::class, 'view']);
