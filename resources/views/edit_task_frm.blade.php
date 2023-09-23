@@ -5,14 +5,18 @@
 <div class="container">
     <div class="row mt-5">
         <div class="col">
-            <h4>Nova Tarefa</h4>
+            <h4>Editar Tarefa</h4>
             <hr>
-            <form action="{{ route('new_task_submit') }}" method="post">
+            <form action="{{ route('edit_task_submit') }}" method="post">
+                
                 @csrf
+
+                <input type="hidden" name="task_id" value="{{ Crypt::encrypt($task->id) }}">
+
                 {{-- task name --}}
                 <div class="mb-3">
                     <label for="text_task_name" class="form-label">Nome da tarefa</label>
-                    <input type="text" name="text_task_name" id="text_task_name" class="form-control" placeholder="Nome da tarefa" required value="{{ old('text_task_name') }}">
+                    <input type="text" name="text_task_name" id="text_task_name" class="form-control" placeholder="Nome da tarefa" required value="{{ old('text_task_name', $task->task_name) }}">
                     @error('text_task_name')
                         <div class="text-warning">{{ $errors->get('text_task_name')[0] }}</div>
                     @enderror
@@ -21,10 +25,21 @@
                 {{-- task description --}}
                 <div class="mb-3">
                     <label for="text_task_description" class="form-label">Descrição da tarefa</label>
-                    <textarea name="text_task_description" id="text_task_description" class="form-control" rows="5" required>{{ old('text_task_description') }}</textarea>
+                    <textarea name="text_task_description" id="text_task_description" class="form-control" rows="5" required>{{ old('text_task_description', $task->task_description) }}</textarea>
                     @error('text_task_description')
                         <div class="text-warning">{{ $errors->get('text_task_description')[0] }}</div>
                     @enderror
+                </div>
+
+                {{-- task status --}}
+                <div class="mb-3">
+                    <label for="text_task_status" class="form-label">Status da tarefa</label>
+                    <select name="text_task_status" id="text_task_status" class="form-select w-25" required>
+                        <option value="new" {{ old('text_task_status', $task->task_status) == 'new' ? "selected" : "" }}>Nova</option>
+                        <option value="in_progress" {{ old('text_task_status', $task->task_status) == 'in_progress' ? "selected" : "" }}>Em progresso</option>
+                        <option value="cancelled" {{ old('text_task_status', $task->task_status) == 'cancelled' ? "selected" : "" }}>Cancelada</option>
+                        <option value="completed" {{ old('text_task_status', $task->task_status) == 'completed' ? "selected" : "" }}>Concluída</option>
+                    </select>
                 </div>
 
                 {{-- cancel or submit --}}
