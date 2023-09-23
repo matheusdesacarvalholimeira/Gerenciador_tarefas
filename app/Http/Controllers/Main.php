@@ -116,6 +116,26 @@ class Main extends Controller
         // get form data
         $task_name = $request->input('text_task_name');
         $task_description = $request->input('text_task_description');
+
+        // check if there is already another task with the same name for the same user
+        $model = new TaskModel();
+        $task = $model->where('id_user', '=', session('id'))
+                      ->where('task_name', '=', $task_name)
+                      ->whereNull('deleted_at')
+                      ->first();
+        if($task){
+            return redirect()->route('new_task')->with('task_error', 'Já existe uma tarefa com o mesmo nome.');
+        }
+
+        // insert new task
+        $model->id_user = session('id');
+        $model->task_name = $task_name;
+        $model->task_description = $task_description;
+        $model->task_status = 'new';
+        $model->created_at = date('Y-m-d H:i:s');
+        $model->save();
+
+        return redirect()->route('index');
     }
 
 
