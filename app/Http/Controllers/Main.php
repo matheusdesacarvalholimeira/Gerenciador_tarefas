@@ -17,7 +17,6 @@ class Main extends Controller
         $data = [
             'title' => 'Gestor de Tarefas',
             'datatables' => true,
-            
         ];
 
         // check if there is a search
@@ -28,6 +27,15 @@ class Main extends Controller
 
             // clear session
             session()->forget('search');
+            session()->forget('tasks');
+
+        } else if (session('filter')) {
+
+            $data['filter'] = session('filter');
+            $data['tasks'] = $this->_get_tasks(session('tasks'));
+
+            // clear session
+            session()->forget('filter');
             session()->forget('tasks');
 
         } else {
@@ -323,9 +331,32 @@ class Main extends Controller
         return redirect()->route('index');
     }
 
-    public function sort($status)
+    public function filter($status)
     {
-        echo 'sort';
+        // decrypt $status
+        try {
+            $status = Crypt::decrypt($status);
+        } catch (\Exception $e) {
+            return redirect()->route('index');
+        }
+
+        // get tasks
+        $model = new TaskModel();
+        if($status == 'all') {
+            $tasks = $model->where('id_user','=',session('id'))
+                           ->whereNull('deleted_at')
+                           ->get();
+        } else {
+            $tasks = $model->where('id_user','=',session('id'))
+                           ->where('task_status','=',$status)
+                           ->whereNull('deleted_at')
+                           ->get();
+        }
+
+        session()->put('tasks', $tasks);
+        session()->put('filter', $status);
+
+        return redirect()->route('index');
     }
 
     // ======================================================

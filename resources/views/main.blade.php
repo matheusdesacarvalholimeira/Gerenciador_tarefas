@@ -23,11 +23,11 @@
                             
                             <label class="me-2 align-self-center">Estado:</label>
                             <select name="filter" id="filter" class="form-select">
-                                <option value="all">Todos</option>
-                                <option value="new">Nova</option>
-                                <option value="in_progress">Em progresso</option>
-                                <option value="cancelled">Cancelada</option>
-                                <option value="completed">Concluída</option>
+                                <option value="{{ Crypt::encrypt('all') }}" @php echo (!empty($filter) && $filter == 'all') ? 'selected' : '' @endphp>Todos</option>
+                                <option value="{{ Crypt::encrypt('new') }}" @php echo (!empty($filter) && $filter == 'new') ? 'selected' : '' @endphp>Nova</option>
+                                <option value="{{ Crypt::encrypt('in_progress') }}" @php echo (!empty($filter) && $filter == 'in_progress') ? 'selected' : '' @endphp>Em progresso</option>
+                                <option value="{{ Crypt::encrypt('cancelled') }}" @php echo (!empty($filter) && $filter == 'cancelled') ? 'selected' : '' @endphp>Cancelada</option>
+                                <option value="{{ Crypt::encrypt('completed') }}" @php echo (!empty($filter) && $filter == 'completed') ? 'selected' : '' @endphp>Concluída</option>
                             </select>
                             
                         </div>
@@ -71,6 +71,13 @@
             ]
         });
     });
+
+    let filter = document.querySelector("#filter");
+    filter.addEventListener('change', () => {
+        let value = filter.value;
+        window.location.href = "{{ url('/filter') }}" + "/" + value;
+    });
+
 </script>
     
 @endsection
