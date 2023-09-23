@@ -173,8 +173,34 @@ class Main extends Controller
 
     public function edit_task_submit(Request $request)
     {
-        echo '<pre>';
-        print_r($request->all());
+        // form validation
+        $request->validate([
+            'text_task_name' => 'required|min:3|max:200',
+            'text_task_description' => 'required|min:3|max:1000',
+            'text_task_status' => 'required',
+        ], [
+            'text_task_name.required' => 'O campo é de preenchimento obrigatório.',
+            'text_task_name.min' => 'O campo deve ter no mínimo :min caracteres.',
+            'text_task_name.max' => 'O campo deve ter no máximo :max caracteres.',
+
+            'text_task_description.required' => 'O campo é de preenchimento obrigatório.',
+            'text_task_description.min' => 'O campo deve ter no mínimo :min caracteres.',
+            'text_task_description.max' => 'O campo deve ter no máximo :max caracteres.',
+
+            'text_task_status.required' => 'O campo é de preenchimento obrigatório.'
+        ]);
+
+        // get form data
+        $task_name = $request->input('text_task_name');
+        $task_description = $request->input('text_task_description');
+        $task_status = $request->input('text_task_status');
+
+        dd([
+            $task_name,
+            $task_description,
+            $task_status
+        ]);
+
     }
 
     // ======================================================
