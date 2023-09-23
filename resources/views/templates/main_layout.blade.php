@@ -12,7 +12,7 @@
         <script src="{{ asset('assets/datatables/jquery/jquery.min.js') }}"></script>
     @endif
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
     
     @include('nav')
 

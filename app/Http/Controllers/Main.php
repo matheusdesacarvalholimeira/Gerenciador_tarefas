@@ -154,7 +154,10 @@ class Main extends Controller
                       ->whereNull('deleted_at')
                       ->first();
         if($task){
-            return redirect()->route('new_task')->with('task_error', 'Já existe uma tarefa com o mesmo nome.');
+            return redirect()
+                   ->route('new_task')
+                   ->withInput()
+                   ->with('task_error', 'Já existe uma tarefa com o mesmo nome.');
         }
 
         // insert new task
@@ -391,8 +394,23 @@ class Main extends Controller
             'completed' => 'Concluída',
         ];
         if(key_exists($status, $status_collection))
-            return $status_collection[$status];
+            return '<span class="' . $this->_status_badge($status) . '"> ' . $status_collection[$status] . '</span>';
         else
-            return 'Desconhecido';
+            return '<span class="' . $this->_status_badge('Desconhecido') . '">Desconhecido</span>';
+    }
+
+    private function _status_badge($status)
+    {
+        $status_collection = [
+            'new' => 'badge bg-primary',
+            'in_progress' => 'badge bg-success',
+            'cancelled' => 'badge bg-danger',
+            'completed' => 'badge bg-secondary',
+        ];
+        if(key_exists($status, $status_collection)){
+            return $status_collection[$status];
+        } else {
+            return 'badge bg-secondary';
+        }
     }
 }
