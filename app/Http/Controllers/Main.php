@@ -372,7 +372,8 @@ class Main extends Controller
             $link_delete = '<a href="' . route('delete_task', ['id' => Crypt::encrypt($task->id)]) . '" class="btn btn-secondary m-1"><i class="bi bi-trash"></i></a>';
 
             $collection[] = [
-                'task_name' => $task->task_name,
+                // 'task_name' => $task->task_name,
+                'task_name' => '<span class="task-title">' . $task->task_name . '</span><br><small class="opacity-50">' . $task->task_description . '</small>',
                 'task_status' => $this->_status_name($task->task_status),
                 'task_actions' => $link_edit . $link_delete
             ];

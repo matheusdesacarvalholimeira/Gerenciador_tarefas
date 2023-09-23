@@ -12,3 +12,9 @@
     border-radius: 10px;
     color: white;
 }
+
+.task-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: lightskyblue;
+}

@@ -43,7 +43,7 @@
 
             @if(count($tasks) != 0)
                 <table class="table table-striped table-bordered" id="table_tasks" width="100%">
-                    <thead class="table-dark">
+                    <thead class="table-primary">
                         <tr>
                             <th class="w-75">Tarefa</th>
                             <th class="text-center">Status</th>
@@ -66,8 +66,8 @@
             data: @json($tasks),
             columns: [
                 { data: 'task_name' },
-                { data: 'task_status', className: 'text-center' },
-                { data: 'task_actions', className: 'text-center' },
+                { data: 'task_status', className: 'text-center align-middle' },
+                { data: 'task_actions', className: 'text-center align-middle' },
             ]
         });
     });
