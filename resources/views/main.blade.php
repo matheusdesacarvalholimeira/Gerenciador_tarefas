@@ -10,6 +10,31 @@
                 <div class="col">
                     <h4>Tarefas</h4>
                 </div>
+
+                <div class="col-6 text-center">
+                    <form action="{{ route('search_submit') }}" method="post">
+                        @csrf
+                        <div class="d-flex">
+
+                            <input type="text" name="text_search" id="text_search" class="form-control" placeholder="Pesquisar">
+                            <button class="btn btn-outline-primary ms-3"><i class="bi bi-search"></i></button>
+                            
+                            <span class="mx-3"></span>
+                            
+                            <label class="me-2 align-self-center">Estado:</label>
+                            <select name="filter" id="filter" class="form-select">
+                                <option value="all">Todos</option>
+                                <option value="new">Nova</option>
+                                <option value="in_progress">Em progresso</option>
+                                <option value="cancelled">Cancelada</option>
+                                <option value="completed">Concluída</option>
+                            </select>
+                            
+                        </div>
+
+                    </form>
+                </div>
+
                 <div class="col text-end">
                     <a href="{{ route('new_task') }}" class="btn btn-primary"><i class="bi bi-plus-square me-2"></i>Nova tarefa</a>
                 </div>
