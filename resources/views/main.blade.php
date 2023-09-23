@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col">
 
-            <div class="row align-items-center">
+            <div class="row align-items-center mb-3">
                 <div class="col">
                     <h4>Tarefas</h4>
                 </div>
@@ -17,7 +17,7 @@
 
 
             @if($tasks->count() != 0)
-                <table class="table table-striped table-bordered">
+                <table class="table table-striped table-bordered" id="table_tasks" width="100%">
                     <thead class="table-dark">
                         <tr>
                             <th class="w-50">Tarefa</th>
@@ -25,15 +25,7 @@
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody>
-                        @foreach ($tasks as $task)
-                            <tr>
-                                <td>{{ $task->task_name }}</td>
-                                <td class="text-center">{{ $task->status }}</td>
-                                <td class="text-center">[actions]</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
+                    <tbody></tbody>
                 </table>
             @else
                 <p class="text-center opacity-50 my-5">Não existem tarefas registadas</p>
@@ -42,5 +34,18 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function(){
+        $('#table_tasks').DataTable({
+            data: @json($tasks),
+            columns: [
+                { data: 'task_name' },
+                { data: 'task_status' },
+                { data: 'id' },
+            ]
+        });
+    });
+</script>
     
 @endsection
