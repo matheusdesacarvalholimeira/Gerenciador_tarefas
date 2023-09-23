@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\TaskModel;
 use App\Models\UserModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 
 class Main extends Controller
 {
@@ -139,6 +140,22 @@ class Main extends Controller
         return redirect()->route('index');
     }
 
+    // ======================================================
+    // edit task
+    // ======================================================
+    public function edit_task($id)
+    {
+        try {
+            
+            $id = Crypt::decrypt($id);
+
+        } catch(\Exception $e){
+            
+            return redirect()->route('index');
+        }
+
+        var_dump($id);
+    }
 
     // ======================================================
     // private methods
@@ -155,8 +172,8 @@ class Main extends Controller
 
         foreach($tasks as $task){
 
-            $link_edit = '<a href="' . route('edit_task', ['id' => $task->id]) . '" class="btn btn-secondary m-1"><i class="bi bi-pencil-square"></i></a>';
-            $link_delete = '<a href="' . route('delete_task', ['id' => $task->id]) . '" class="btn btn-secondary m-1"><i class="bi bi-trash"></i></a>';
+            $link_edit = '<a href="' . route('edit_task', ['id' => Crypt::encrypt($task->id)]) . '" class="btn btn-secondary m-1"><i class="bi bi-pencil-square"></i></a>';
+            $link_delete = '<a href="' . route('delete_task', ['id' => Crypt::encrypt($task->id)]) . '" class="btn btn-secondary m-1"><i class="bi bi-trash"></i></a>';
 
             $collection[] = [
                 'task_name' => $task->task_name,
